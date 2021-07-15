@@ -8,6 +8,12 @@ import * as cdktf from 'cdktf';
 
 export interface DataDockerRegistryImageConfig extends cdktf.TerraformMetaArguments {
   /**
+  * If `true`, the verification of TLS certificates of the server/registry is disabled. Defaults to `false`
+  * 
+  * Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/docker/d/registry_image.html#insecure_skip_verify DataDockerRegistryImage#insecure_skip_verify}
+  */
+  readonly insecureSkipVerify?: boolean;
+  /**
   * The name of the Docker image, including any tags. e.g. `alpine:latest`
   * 
   * Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/docker/d/registry_image.html#name DataDockerRegistryImage#name}
@@ -42,6 +48,7 @@ export class DataDockerRegistryImage extends cdktf.TerraformDataSource {
       count: config.count,
       lifecycle: config.lifecycle
     });
+    this._insecureSkipVerify = config.insecureSkipVerify;
     this._name = config.name;
   }
 
@@ -52,6 +59,22 @@ export class DataDockerRegistryImage extends cdktf.TerraformDataSource {
   // id - computed: true, optional: true, required: false
   public get id() {
     return this.getStringAttribute('id');
+  }
+
+  // insecure_skip_verify - computed: false, optional: true, required: false
+  private _insecureSkipVerify?: boolean;
+  public get insecureSkipVerify() {
+    return this.getBooleanAttribute('insecure_skip_verify');
+  }
+  public set insecureSkipVerify(value: boolean ) {
+    this._insecureSkipVerify = value;
+  }
+  public resetInsecureSkipVerify() {
+    this._insecureSkipVerify = undefined;
+  }
+  // Temporarily expose input value. Use with caution.
+  public get insecureSkipVerifyInput() {
+    return this._insecureSkipVerify
   }
 
   // name - computed: false, optional: false, required: true
@@ -78,6 +101,7 @@ export class DataDockerRegistryImage extends cdktf.TerraformDataSource {
 
   protected synthesizeAttributes(): { [name: string]: any } {
     return {
+      insecure_skip_verify: cdktf.booleanToTerraform(this._insecureSkipVerify),
       name: cdktf.stringToTerraform(this._name),
     };
   }

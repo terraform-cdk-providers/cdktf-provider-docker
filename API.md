@@ -7,6 +7,7 @@ Name|Description
 [Config](#cdktf-provider-docker-config)|Represents a {@link https://www.terraform.io/docs/providers/docker/r/config.html docker_config}.
 [Container](#cdktf-provider-docker-container)|Represents a {@link https://www.terraform.io/docs/providers/docker/r/container.html docker_container}.
 [ContainerNetworkData](#cdktf-provider-docker-containernetworkdata)|*No description*
+[DataDockerImage](#cdktf-provider-docker-datadockerimage)|Represents a {@link https://www.terraform.io/docs/providers/docker/d/image.html docker_image}.
 [DataDockerNetwork](#cdktf-provider-docker-datadockernetwork)|Represents a {@link https://www.terraform.io/docs/providers/docker/d/network.html docker_network}.
 [DataDockerNetworkIpamConfig](#cdktf-provider-docker-datadockernetworkipamconfig)|*No description*
 [DataDockerPlugin](#cdktf-provider-docker-datadockerplugin)|Represents a {@link https://www.terraform.io/docs/providers/docker/d/plugin.html docker_plugin}.
@@ -42,6 +43,7 @@ Name|Description
 [ContainerUlimit](#cdktf-provider-docker-containerulimit)|*No description*
 [ContainerUpload](#cdktf-provider-docker-containerupload)|*No description*
 [ContainerVolumes](#cdktf-provider-docker-containervolumes)|*No description*
+[DataDockerImageConfig](#cdktf-provider-docker-datadockerimageconfig)|*No description*
 [DataDockerNetworkConfig](#cdktf-provider-docker-datadockernetworkconfig)|*No description*
 [DataDockerPluginConfig](#cdktf-provider-docker-datadockerpluginconfig)|*No description*
 [DataDockerRegistryImageConfig](#cdktf-provider-docker-datadockerregistryimageconfig)|*No description*
@@ -1076,6 +1078,60 @@ Name | Type | Description
 
 
 
+## class DataDockerImage  <a id="cdktf-provider-docker-datadockerimage"></a>
+
+Represents a {@link https://www.terraform.io/docs/providers/docker/d/image.html docker_image}.
+
+__Implements__: [IConstruct](#constructs-iconstruct), [ITerraformResource](#cdktf-iterraformresource), [ITerraformDependable](#cdktf-iterraformdependable)
+__Extends__: [TerraformDataSource](#cdktf-terraformdatasource)
+
+### Initializer
+
+
+Create a new {@link https://www.terraform.io/docs/providers/docker/d/image.html docker_image} Data Source.
+
+```ts
+new DataDockerImage(scope: Construct, id: string, config: DataDockerImageConfig)
+```
+
+* **scope** (<code>[Construct](#constructs-construct)</code>)  The scope in which to define this construct.
+* **id** (<code>string</code>)  The scoped construct ID.
+* **config** (<code>[DataDockerImageConfig](#cdktf-provider-docker-datadockerimageconfig)</code>)  *No description*
+  * **count** (<code>number</code>)  *No description* __*Optional*__
+  * **dependsOn** (<code>Array<[ITerraformDependable](#cdktf-iterraformdependable)></code>)  *No description* __*Optional*__
+  * **lifecycle** (<code>[TerraformResourceLifecycle](#cdktf-terraformresourcelifecycle)</code>)  *No description* __*Optional*__
+  * **provider** (<code>[TerraformProvider](#cdktf-terraformprovider)</code>)  *No description* __*Optional*__
+  * **name** (<code>string</code>)  The name of the Docker image, including any tags or SHA256 repo digests. 
+
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**id** | <code>string</code> | <span></span>
+**name** | <code>string</code> | <span></span>
+**nameInput** | <code>string</code> | <span></span>
+**repoDigest** | <code>string</code> | <span></span>
+
+### Methods
+
+
+#### protected synthesizeAttributes() <a id="cdktf-provider-docker-datadockerimage-synthesizeattributes"></a>
+
+
+
+```ts
+protected synthesizeAttributes(): Map<string, any>
+```
+
+
+__Returns__:
+* <code>Map<string, any></code>
+
+
+
 ## class DataDockerNetwork  <a id="cdktf-provider-docker-datadockernetwork"></a>
 
 Represents a {@link https://www.terraform.io/docs/providers/docker/d/network.html docker_network}.
@@ -1299,6 +1355,7 @@ new DataDockerRegistryImage(scope: Construct, id: string, config: DataDockerRegi
   * **lifecycle** (<code>[TerraformResourceLifecycle](#cdktf-terraformresourcelifecycle)</code>)  *No description* __*Optional*__
   * **provider** (<code>[TerraformProvider](#cdktf-terraformprovider)</code>)  *No description* __*Optional*__
   * **name** (<code>string</code>)  The name of the Docker image, including any tags. e.g. `alpine:latest`. 
+  * **insecureSkipVerify** (<code>boolean</code>)  If `true`, the verification of TLS certificates of the server/registry is disabled. Defaults to `false`. __*Optional*__
 
 
 
@@ -1308,11 +1365,25 @@ new DataDockerRegistryImage(scope: Construct, id: string, config: DataDockerRegi
 Name | Type | Description 
 -----|------|-------------
 **id** | <code>string</code> | <span></span>
+**insecureSkipVerify** | <code>boolean</code> | <span></span>
 **name** | <code>string</code> | <span></span>
 **nameInput** | <code>string</code> | <span></span>
 **sha256Digest** | <code>string</code> | <span></span>
+**insecureSkipVerifyInput**? | <code>boolean</code> | __*Optional*__
 
 ### Methods
+
+
+#### resetInsecureSkipVerify() <a id="cdktf-provider-docker-datadockerregistryimage-resetinsecureskipverify"></a>
+
+
+
+```ts
+resetInsecureSkipVerify(): void
+```
+
+
+
 
 
 #### protected synthesizeAttributes() <a id="cdktf-provider-docker-datadockerregistryimage-synthesizeattributes"></a>
@@ -1526,6 +1597,7 @@ Name | Type | Description
 **output** | <code>string</code> | <span></span>
 **pullTrigger** | <code>string</code> | <span></span>
 **pullTriggers** | <code>Array<string></code> | <span></span>
+**repoDigest** | <code>string</code> | <span></span>
 **buildAttributeInput**? | <code>Array<[ImageBuild](#cdktf-provider-docker-imagebuild)></code> | __*Optional*__
 **forceRemoveInput**? | <code>boolean</code> | __*Optional*__
 **keepLocallyInput**? | <code>boolean</code> | __*Optional*__
@@ -2012,6 +2084,7 @@ new RegistryImage(scope: Construct, id: string, config: RegistryImageConfig)
   * **provider** (<code>[TerraformProvider](#cdktf-terraformprovider)</code>)  *No description* __*Optional*__
   * **name** (<code>string</code>)  The name of the Docker image. 
   * **buildAttribute** (<code>Array<[RegistryImageBuild](#cdktf-provider-docker-registryimagebuild)></code>)  build block. __*Optional*__
+  * **insecureSkipVerify** (<code>boolean</code>)  If `true`, the verification of TLS certificates of the server/registry is disabled. Defaults to `false`. __*Optional*__
   * **keepRemotely** (<code>boolean</code>)  If true, then the Docker image won't be deleted on destroy operation. __*Optional*__
 
 
@@ -2023,11 +2096,13 @@ Name | Type | Description
 -----|------|-------------
 **buildAttribute** | <code>Array<[RegistryImageBuild](#cdktf-provider-docker-registryimagebuild)></code> | <span></span>
 **id** | <code>string</code> | <span></span>
+**insecureSkipVerify** | <code>boolean</code> | <span></span>
 **keepRemotely** | <code>boolean</code> | <span></span>
 **name** | <code>string</code> | <span></span>
 **nameInput** | <code>string</code> | <span></span>
 **sha256Digest** | <code>string</code> | <span></span>
 **buildAttributeInput**? | <code>Array<[RegistryImageBuild](#cdktf-provider-docker-registryimagebuild)></code> | __*Optional*__
+**insecureSkipVerifyInput**? | <code>boolean</code> | __*Optional*__
 **keepRemotelyInput**? | <code>boolean</code> | __*Optional*__
 
 ### Methods
@@ -2039,6 +2114,18 @@ Name | Type | Description
 
 ```ts
 resetBuildAttribute(): void
+```
+
+
+
+
+
+#### resetInsecureSkipVerify() <a id="cdktf-provider-docker-registryimage-resetinsecureskipverify"></a>
+
+
+
+```ts
+resetInsecureSkipVerify(): void
 ```
 
 
@@ -2736,6 +2823,23 @@ Name | Type | Description
 
 
 
+## struct DataDockerImageConfig  <a id="cdktf-provider-docker-datadockerimageconfig"></a>
+
+
+
+
+
+
+Name | Type | Description 
+-----|------|-------------
+**name** | <code>string</code> | The name of the Docker image, including any tags or SHA256 repo digests.
+**count**?🔹 | <code>number</code> | __*Optional*__
+**dependsOn**?🔹 | <code>Array<[ITerraformDependable](#cdktf-iterraformdependable)></code> | __*Optional*__
+**lifecycle**?🔹 | <code>[TerraformResourceLifecycle](#cdktf-terraformresourcelifecycle)</code> | __*Optional*__
+**provider**?🔹 | <code>[TerraformProvider](#cdktf-terraformprovider)</code> | __*Optional*__
+
+
+
 ## struct DataDockerNetworkConfig  <a id="cdktf-provider-docker-datadockernetworkconfig"></a>
 
 
@@ -2783,6 +2887,7 @@ Name | Type | Description
 **name** | <code>string</code> | The name of the Docker image, including any tags. e.g. `alpine:latest`.
 **count**?🔹 | <code>number</code> | __*Optional*__
 **dependsOn**?🔹 | <code>Array<[ITerraformDependable](#cdktf-iterraformdependable)></code> | __*Optional*__
+**insecureSkipVerify**? | <code>boolean</code> | If `true`, the verification of TLS certificates of the server/registry is disabled. Defaults to `false`.<br/>__*Optional*__
 **lifecycle**?🔹 | <code>[TerraformResourceLifecycle](#cdktf-terraformresourcelifecycle)</code> | __*Optional*__
 **provider**?🔹 | <code>[TerraformProvider](#cdktf-terraformprovider)</code> | __*Optional*__
 
@@ -2972,7 +3077,7 @@ Name | Type | Description
 
 Name | Type | Description 
 -----|------|-------------
-**context** | <code>string</code> | The path to the context folder.
+**context** | <code>string</code> | The absolute path to the context folder. You can use the helper function '${path.cwd}/context-dir'.
 **authConfig**? | <code>Array<[RegistryImageBuildAuthConfig](#cdktf-provider-docker-registryimagebuildauthconfig)></code> | auth_config block.<br/>__*Optional*__
 **buildArgs**? | <code>Map<string, string></code> | Pairs for build-time variables in the form TODO.<br/>__*Optional*__
 **buildId**? | <code>string</code> | BuildID is an optional identifier that can be passed together with the build request. The.<br/>__*Optional*__
@@ -3055,6 +3160,7 @@ Name | Type | Description
 **buildAttribute**? | <code>Array<[RegistryImageBuild](#cdktf-provider-docker-registryimagebuild)></code> | build block.<br/>__*Optional*__
 **count**?🔹 | <code>number</code> | __*Optional*__
 **dependsOn**?🔹 | <code>Array<[ITerraformDependable](#cdktf-iterraformdependable)></code> | __*Optional*__
+**insecureSkipVerify**? | <code>boolean</code> | If `true`, the verification of TLS certificates of the server/registry is disabled. Defaults to `false`.<br/>__*Optional*__
 **keepRemotely**? | <code>boolean</code> | If true, then the Docker image won't be deleted on destroy operation.<br/>__*Optional*__
 **lifecycle**?🔹 | <code>[TerraformResourceLifecycle](#cdktf-terraformresourcelifecycle)</code> | __*Optional*__
 **provider**?🔹 | <code>[TerraformProvider](#cdktf-terraformprovider)</code> | __*Optional*__
@@ -3267,9 +3373,9 @@ Name | Type | Description
 
 Name | Type | Description 
 -----|------|-------------
-**image** | <code>string</code> | The image name to use for the containers of the service.
+**image** | <code>string</code> | The image name to use for the containers of the service, like `nginx:1.17.6`. Also use the data-source or resource of `docker_image` with the `repo_digest` or `docker_registry_image` with the `name` attribute for this, as shown in the examples.
 **args**? | <code>Array<string></code> | Arguments to the command.<br/>__*Optional*__
-**command**? | <code>Array<string></code> | The command to be run in the image.<br/>__*Optional*__
+**command**? | <code>Array<string></code> | The command/entrypoint to be run in the image.<br/>__*Optional*__
 **configs**? | <code>Array<[ServiceTaskSpecContainerSpecConfigs](#cdktf-provider-docker-servicetaskspeccontainerspecconfigs)></code> | configs block.<br/>__*Optional*__
 **dir**? | <code>string</code> | The working directory for commands to run in.<br/>__*Optional*__
 **dnsConfig**? | <code>Array<[ServiceTaskSpecContainerSpecDnsConfig](#cdktf-provider-docker-servicetaskspeccontainerspecdnsconfig)></code> | dns_config block.<br/>__*Optional*__
@@ -3396,7 +3502,7 @@ Name | Type | Description
 
 Name | Type | Description 
 -----|------|-------------
-**propagation**? | <code>string</code> | A propagation mode with the value.<br/>__*Optional*__
+**propagation**? | <code>string</code> | Bind propagation refers to whether or not mounts created within a given bind-mount or named volume can be propagated to replicas of that mount.<br/>__*Optional*__
 
 
 
