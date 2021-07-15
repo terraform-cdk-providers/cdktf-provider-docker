@@ -468,7 +468,7 @@ function serviceTaskSpecContainerSpecLabelsToTerraform(struct?: ServiceTaskSpecC
 
 export interface ServiceTaskSpecContainerSpecMountsBindOptions {
   /**
-  * A propagation mode with the value
+  * Bind propagation refers to whether or not mounts created within a given bind-mount or named volume can be propagated to replicas of that mount. See the [docs](https://docs.docker.com/storage/bind-mounts/#configure-bind-propagation) for details. Defaults to `rprivate`
   * 
   * Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/docker/r/service.html#propagation Service#propagation}
   */
@@ -772,7 +772,7 @@ export interface ServiceTaskSpecContainerSpec {
   */
   readonly args?: string[];
   /**
-  * The command to be run in the image
+  * The command/entrypoint to be run in the image. According to the [docker cli](https://github.com/docker/cli/blob/v20.10.7/cli/command/service/opts.go#L705) the override of the entrypoint is also passed to the `command` property and there is no `entrypoint` attribute in the `ContainerSpec` of the service.
   * 
   * Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/docker/r/service.html#command Service#command}
   */
@@ -802,7 +802,7 @@ export interface ServiceTaskSpecContainerSpec {
   */
   readonly hostname?: string;
   /**
-  * The image name to use for the containers of the service
+  * The image name to use for the containers of the service, like `nginx:1.17.6`. Also use the data-source or resource of `docker_image` with the `repo_digest` or `docker_registry_image` with the `name` attribute for this, as shown in the examples.
   * 
   * Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/docker/r/service.html#image Service#image}
   */
@@ -820,7 +820,7 @@ export interface ServiceTaskSpecContainerSpec {
   */
   readonly readOnly?: boolean;
   /**
-  * Amount of time to wait for the container to terminate before forcefully removing it (ms|s|m|h)
+  * Amount of time to wait for the container to terminate before forcefully removing it (ms|s|m|h). If not specified or '0s' the destroy will not check if all tasks/containers of the service terminate.
   * 
   * Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/docker/r/service.html#stop_grace_period Service#stop_grace_period}
   */

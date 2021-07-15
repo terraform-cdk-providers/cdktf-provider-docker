@@ -8,6 +8,7 @@ export * from './registry-image';
 export * from './secret';
 export * from './service';
 export * from './volume';
+export * from './data-docker-image';
 export * from './data-docker-network';
 export * from './data-docker-plugin';
 export * from './data-docker-registry-image';

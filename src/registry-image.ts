@@ -8,6 +8,12 @@ import * as cdktf from 'cdktf';
 
 export interface RegistryImageConfig extends cdktf.TerraformMetaArguments {
   /**
+  * If `true`, the verification of TLS certificates of the server/registry is disabled. Defaults to `false`
+  * 
+  * Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/docker/r/registry_image.html#insecure_skip_verify RegistryImage#insecure_skip_verify}
+  */
+  readonly insecureSkipVerify?: boolean;
+  /**
   * If true, then the Docker image won't be deleted on destroy operation. If this is false, it will delete the image from the docker registry on destroy operation. Defaults to `false`
   * 
   * Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/docker/r/registry_image.html#keep_remotely RegistryImage#keep_remotely}
@@ -147,7 +153,7 @@ export interface RegistryImageBuild {
   */
   readonly cgroupParent?: string;
   /**
-  * The path to the context folder
+  * The absolute path to the context folder. You can use the helper function '${path.cwd}/context-dir'.
   * 
   * Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/docker/r/registry_image.html#context RegistryImage#context}
   */
@@ -382,6 +388,7 @@ export class RegistryImage extends cdktf.TerraformResource {
       count: config.count,
       lifecycle: config.lifecycle
     });
+    this._insecureSkipVerify = config.insecureSkipVerify;
     this._keepRemotely = config.keepRemotely;
     this._name = config.name;
     this._build = config.buildAttribute;
@@ -394,6 +401,22 @@ export class RegistryImage extends cdktf.TerraformResource {
   // id - computed: true, optional: true, required: false
   public get id() {
     return this.getStringAttribute('id');
+  }
+
+  // insecure_skip_verify - computed: false, optional: true, required: false
+  private _insecureSkipVerify?: boolean;
+  public get insecureSkipVerify() {
+    return this.getBooleanAttribute('insecure_skip_verify');
+  }
+  public set insecureSkipVerify(value: boolean ) {
+    this._insecureSkipVerify = value;
+  }
+  public resetInsecureSkipVerify() {
+    this._insecureSkipVerify = undefined;
+  }
+  // Temporarily expose input value. Use with caution.
+  public get insecureSkipVerifyInput() {
+    return this._insecureSkipVerify
   }
 
   // keep_remotely - computed: false, optional: true, required: false
@@ -452,6 +475,7 @@ export class RegistryImage extends cdktf.TerraformResource {
 
   protected synthesizeAttributes(): { [name: string]: any } {
     return {
+      insecure_skip_verify: cdktf.booleanToTerraform(this._insecureSkipVerify),
       keep_remotely: cdktf.booleanToTerraform(this._keepRemotely),
       name: cdktf.stringToTerraform(this._name),
       build: cdktf.listMapper(registryImageBuildToTerraform)(this._build),

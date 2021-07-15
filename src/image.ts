@@ -248,6 +248,11 @@ export class Image extends cdktf.TerraformResource {
     return this._pullTriggers
   }
 
+  // repo_digest - computed: true, optional: false, required: false
+  public get repoDigest() {
+    return this.getStringAttribute('repo_digest');
+  }
+
   // build - computed: false, optional: true, required: false
   private _build?: ImageBuild[];
   public get buildAttribute() {
